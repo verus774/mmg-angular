@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ICard} from './card/card.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'mmg-angular';
+  card: ICard = {
+    id: 1,
+    frontSide: 'assets/img/front/christmas/0.jpg',
+    backSide: 'assets/img/back/42.jpg',
+    isOpened: false,
+    isRemoved: false,
+  };
+
+  onCardClick(cardId: string | number) {
+    this.card.isOpened = !this.card.isOpened;
+  }
+
 }
