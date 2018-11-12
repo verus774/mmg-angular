@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {GameService} from '../shared/game.service';
 import {ICard} from '../card/card.model';
 
 @Component({
@@ -7,27 +8,23 @@ import {ICard} from '../card/card.model';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  cards: ICard[] = [
-    {
-      id: 1,
-      frontSide: 'assets/img/front/christmas/0.jpg',
-      backSide: 'assets/img/back/42.jpg',
-      isOpened: false,
-      isRemoved: false,
-    },
-    {
-      id: 2,
-      frontSide: 'assets/img/front/christmas/1.jpg',
-      backSide: 'assets/img/back/42.jpg',
-      isOpened: false,
-      isRemoved: false,
-    },
-  ];
+  @Input() cardsCount: number;
+  cards: ICard[];
 
-  constructor() {
+  constructor(private gameService: GameService) {
+  }
+
+  onCardClick(cardId: string | number) {
+    this.cards.map((card, idx, arr) => {
+      if (card.id === cardId) {
+        arr[idx] = {...card, isOpened: !card.isOpened};
+      }
+      return card;
+    });
   }
 
   ngOnInit() {
+    this.cards = this.gameService.generateCards(this.cardsCount);
   }
 
 }

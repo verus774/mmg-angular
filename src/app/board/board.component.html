@@ -1,4 +1,6 @@
 <app-card
   *ngFor="let card of cards"
-  [card]="card">
+  [card]="card"
+  (cardClick)="onCardClick($event)"
+>
 </app-card>

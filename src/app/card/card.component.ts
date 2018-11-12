@@ -8,7 +8,7 @@ import {ICard} from './card.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  @Input() public card: ICard;
+  @Input() card: ICard;
   @Output() cardClick = new EventEmitter<string | number>();
 
   onCardClick(cardId: string | number) {
