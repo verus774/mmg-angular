@@ -1,5 +1,9 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Store} from '@ngrx/store';
+
 import {ICard} from './card.model';
+import {AppState} from '../store/app.state';
+import * as CardsActions from '../store/actions/cards.actions';
 
 @Component({
   selector: 'app-card',
@@ -9,10 +13,16 @@ import {ICard} from './card.model';
 })
 export class CardComponent {
   @Input() card: ICard;
-  @Output() cardClick = new EventEmitter<string | number>();
 
-  onCardClick(cardId: string | number) {
-    this.cardClick.emit(cardId);
+  constructor(private store: Store<AppState>) {
+  }
+
+  onCardClick(card: ICard) {
+    const {id, isOpened} = card;
+
+    if (!isOpened) {
+      this.store.dispatch(new CardsActions.OpenCard(card.id));
+    }
   }
 
 }

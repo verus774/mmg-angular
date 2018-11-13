@@ -31,6 +31,15 @@ export function cardsReducer(state: ICard[] = initialState, action: CardsActions
             return acc;
           }, [])
       );
+    case CardsActions.OPEN_CARD:
+      const cardId = action.payload;
+
+      return state.map(card => {
+        if (card.id === cardId) {
+          return {...card, isOpened: true};
+        }
+        return card;
+      });
     default:
       return state;
   }

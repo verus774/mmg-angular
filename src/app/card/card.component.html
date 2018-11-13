@@ -4,7 +4,7 @@
             'open-card': card.isOpened,
             'remove-card': card.isRemoved
           }"
-          (click)="onCardClick(card.id)"
+          (click)="onCardClick(card)"
   >
     <img class="back" src="{{card.backSide}}" alt="">
     <img class="front" src="{{card.frontSide}}" alt="">
