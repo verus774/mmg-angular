@@ -1,6 +1,5 @@
 <app-card
-  *ngFor="let card of cards"
+  *ngFor="let card of cards| async"
   [card]="card"
-  (cardClick)="onCardClick($event)"
 >
 </app-card>

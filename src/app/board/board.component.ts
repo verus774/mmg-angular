@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GameService} from '../shared/game.service';
 import {ICard} from '../card/card.model';
+import {Store} from '@ngrx/store';
+
+import * as CardsActions from '../store/actions/cards.actions';
+import {Observable} from 'rxjs';
+import {AppState} from '../store/app.state';
 
 @Component({
   selector: 'app-board',
@@ -9,22 +13,18 @@ import {ICard} from '../card/card.model';
 })
 export class BoardComponent implements OnInit {
   @Input() cardsCount: number;
-  cards: ICard[];
+  cards: Observable<ICard[]>;
 
-  constructor(private gameService: GameService) {
-  }
-
-  onCardClick(cardId: string | number) {
-    this.cards.map((card, idx, arr) => {
-      if (card.id === cardId) {
-        arr[idx] = {...card, isOpened: !card.isOpened};
-      }
-      return card;
-    });
+  constructor(private store: Store<AppState>) {
+    this.cards = this.store.select('cards');
   }
 
   ngOnInit() {
-    this.cards = this.gameService.generateCards(this.cardsCount);
+    this.store.dispatch(new CardsActions.GenerateCards({
+      cardsCount: 4,
+      backSide: 'assets/img/back/42.jpg',
+      frontImgDir: 'assets/img/front/christmas',
+    }));
   }
 
 }
