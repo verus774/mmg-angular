@@ -16,15 +16,20 @@ export class BoardComponent implements OnInit {
   cards: Observable<ICard[]>;
 
   constructor(private store: Store<AppState>) {
-    this.cards = this.store.select('cards');
   }
 
   ngOnInit() {
+    this.cards = this.store.select('cards');
+
     this.store.dispatch(new CardsActions.GenerateCards({
       cardsCount: 4,
       backSide: 'assets/img/back/42.jpg',
       frontImgDir: 'assets/img/front/christmas',
     }));
+  }
+
+  trackByFn(index: number, item: ICard) {
+    return item.id;
   }
 
 }
