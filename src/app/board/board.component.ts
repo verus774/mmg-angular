@@ -32,4 +32,11 @@ export class BoardComponent implements OnInit {
     return item.id;
   }
 
+  onCardClicked(card: ICard) {
+    const {id, isOpened} = card;
+
+    if (!isOpened) {
+      this.store.dispatch(new CardsActions.OpenCard(id));
+    }
+  }
 }

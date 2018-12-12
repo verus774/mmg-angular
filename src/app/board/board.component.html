@@ -1,5 +1,6 @@
 <app-card
   *ngFor="let card of cards| async; trackBy: trackByFn"
   [card]="card"
+  (cardClicked)="onCardClicked($event)"
 >
 </app-card>
